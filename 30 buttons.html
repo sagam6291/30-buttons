@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>30 Buttons</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #1e1e1e;
+      --card-bg: #d6d6d6;
+      --button-bg: #282568;
+      --button-hover: #373385;
+      --button-active: #1e1b52;
+      --text-white: #ffffff;
+      --label-color: #8c8c8c;
+      --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      font-family: var(--font-family);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+      color: var(--text-white);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 960px;
+    }
+
+    /* Screen Views */
+    .screen {
+      display: none;
+      animation: fadeIn 0.25s ease-in-out forwards;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(4px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Header title above the light card */
+    .screen-title {
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: var(--label-color);
+      margin-bottom: 12px;
+      padding-left: 4px;
+    }
+
+    /* Main card container matching Figma design */
+    .card-panel {
+      background-color: var(--card-bg);
+      border-radius: 16px;
+      padding: 36px 32px;
+      width: 100%;
+      min-height: 480px;
+      display: flex;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Home Screen Grid */
+    .buttons-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px 20px;
+      width: 100%;
+    }
+
+    /* Standard Button Style matching Figma */
+    .btn {
+      background-color: var(--button-bg);
+      color: var(--text-white);
+      border: none;
+      border-radius: 10px;
+      padding: 16px 12px;
+      font-family: var(--font-family);
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s ease-in-out;
+      outline: none;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn:hover {
+      background-color: var(--button-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(40, 37, 104, 0.3);
+    }
+
+    .btn:active {
+      background-color: var(--button-active);
+      transform: translateY(0);
+      box-shadow: none;
+    }
+
+    /* Logout Screen Layout */
+    .logout-panel {
+      justify-content: center;
+      align-items: center;
+    }
+
+    .logout-btn {
+      padding: 16px 28px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 6px;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .buttons-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+      }
+      .card-panel {
+        padding: 24px 16px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .buttons-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- HOME SCREEN -->
+    <div id="home-screen" class="screen active">
+      <div class="screen-title">Home</div>
+      <div class="card-panel">
+        <div class="buttons-grid" id="grid">
+          <!-- 30 buttons generated here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- LOGOUT SCREEN -->
+    <div id="logout-screen" class="screen">
+      <div class="screen-title">Logout</div>
+      <div class="card-panel logout-panel">
+        <button class="btn logout-btn" onclick="navigateTo('home-screen')">homepage button</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Generate 30 buttons dynamically
+    const grid = document.getElementById('grid');
+    for (let i = 1; i <= 30; i++) {
+      const btn = document.createElement('button');
+      btn.className = 'btn';
+      btn.textContent = `button ${i}`;
+      btn.onclick = () => navigateTo('logout-screen');
+      grid.appendChild(btn);
+    }
+
+    // Navigation function
+    function navigateTo(screenId) {
+      document.querySelectorAll('.screen').forEach(screen => {
+        screen.classList.remove('active');
+      });
+      document.getElementById(screenId).classList.add('active');
+    }
+  </script>
+</body>
+</html>
